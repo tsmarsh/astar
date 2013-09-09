@@ -46,18 +46,14 @@ public class AStar {
 
     public static void main(String... args){
 
-        Location start = new Location(0,0);
-        Location end = new Location(5,5);
-
         long startNano = System.currentTimeMillis();
+
+        Location start = new Location(0,0);
+        Location end = new Location(100,100);
+
         AStar aStar = new AStar(start, end);
-        List<Location> locations = aStar.astar();
-        long endNano = System.currentTimeMillis();
+        aStar.astar();
 
-        System.out.println("Total time: " + (endNano - startNano));
-
-        for(Location location : locations){
-            System.out.println(location);
-        }
+        System.out.println("Total time: " + (System.currentTimeMillis() - startNano));
     }
 }
