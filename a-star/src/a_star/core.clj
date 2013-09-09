@@ -43,16 +43,16 @@
 (defn a-star [start end]
   (let [h (distance-from-end end) start-node (Node. start nil (h start))]
     (loop [open (sorted-set-by compy start-node)
-           closed []]
+           closed #{}]
       (cond
         (seq open)
         (let [current (first open)]
           (cond
             (= (:location current) end)
             (find-path current [])
-            (some #{current} closed)
+            (contains? closed (:location current))
             (recur (disj open current) closed)
-            :else (recur (into (disj open current) (get-children current h)) (conj closed current))))
+            :else (recur (into (disj open current) (get-children current h)) (conj closed (:location current)))))
         :else "No path found"))))
 
 (defn -main []
