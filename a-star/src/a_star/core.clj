@@ -4,7 +4,11 @@
 
 (defrecord Node [location parent h])
 
-(def all_nodes {})
+(defn x [node]
+  (:x (:location node)))
+
+(defn y [node]
+  (:y (:location node)))
 
 (defn get-children [parent, h]
   (let [parent-x (x parent)
@@ -25,12 +29,6 @@
     (cond (:parent node)
       (recur (:parent node) new-path)
       :else new-path)))
-
-(defn x [node]
-  (:x (:location node)))
-
-(defn y [node]
-  (:y (:location node)))
 
 (defn compy [a b]
   (let [c (compare (:h a) (:h b))]
