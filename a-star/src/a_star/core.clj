@@ -26,9 +26,9 @@
 
 (defn find-path [node path]
   (let [new-path (cons (:location node) path)]
-    (cond (:parent node)
+    (if (:parent node)
       (recur (:parent node) new-path)
-      :else new-path)))
+      new-path)))
 
 (defn compy [a b]
   (let [c (compare (:h a) (:h b))]
@@ -49,10 +49,11 @@
           (if (= (:location current) end)
             (find-path current [])
             (let [next-locs (remove closed (get-children current))]
-            (recur (into (disj open current) (map #(Node. % current (h %)) next-locs)) (conj closed (:location current))))))
+            (recur  (into (disj open current) (map #(Node. % current (h %)) next-locs))
+                    (conj closed (:location current))))))
         "No path found"))))
 
 (defn -main []
   (let [start (Location. 0 0)
-        end (Location. 200 200)]
+        end (Location. 0 5)]
     (time (a-star start end))))
